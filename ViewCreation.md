@@ -4,6 +4,8 @@ In the [previous step](Start.md) we had a quick look at the index file where the
 
 This example will not reflect reality as the data displayed in the view is just a mockup meant to simulate a real data set.
 
+We will be using Just Sugar's routing system for this example but if you do not want to use it simply ignore the first part of this guide.
+
 Let's get started!
 
 ## Routing
@@ -206,7 +208,7 @@ Now that we have the looks figured out let's add some functionality to this view
 In order to trigger the delete action we will use the ```on()``` helper function like so:
 
 ```javascript
-<td><button ${this.on('click', 'deleteUser', [user.id])}>Delete</button></td>
+`<td><button ${this.on('click', 'deleteUser', [user.id])}>Delete</button></td>`
 ```
 
 The ```on()``` function takes 3 parameters. The first one is the event to listen for. In this case the event is on click. The second parameter is the function to be called once the event is triggered. The function MUST be in the class you added the event listener to. Finally the parameters array determines what will be sent to the callback function. This parameter is optional.

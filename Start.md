@@ -11,40 +11,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
 </head>
-<script type="module" src="/just_sugar.js"></script>
+<script type="module">
+    import APP from "/core/app.js";
+    new APP(null, {wrapperSelector: '#APP', devMode: true, layout: "default", view: "home"})
+</script>
 <body id="APP"></body>
 </html>
 ```
-As you can see we load the ```just_sugar.js``` file from our root directoty and that is about it! Everything else is handled automatically.
+As you can see we load the ```app.js``` file from our core directoty and then we create a new instance of the app, giving it the required parameters. That is about it! Everything else is handled automatically.
 
-You may notice that we have an id of ```APP``` on the body element. This is because the body will be used as the wrapper of the application. The wrapper is used as a fixed reference point for all the logic of the application. It is where our interface will be rendered.
+You may notice that we have an id of ```APP``` on the body element. This is because the body will be used as the wrapper of the application. The wrapper is used as a fixed reference point for all the logic of the application. It is where our interface will be rendered. Feel free to change the wrapper however you want. It can be a div, section, article or anything else you want.
 
-## Let's take a look at the ```just_sugar.js``` file now.
+## Let's take a look at an example using the built in router.
 
-```javascript
-import APP from '/core/app.js'
-import SugarCube from '/core/sugar_cube.js'
-import View from '/core/view.js'
-import Component from '/core/component.js'
-import Layout from '/core/layout.js'
-import Router from '/core/router.js'
-import routes from '/src/config/routes.js'
-window.__JUST_SUGAR__ = new APP(routes, {wrapperSelector: '#APP', devMode: true})
-await __JUST_SUGAR__.init()
+```html
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+<script type="module">
+    import APP from "/core/app.js";
+    import routes from "/src/config/routes.js"
+    new APP(routes, {wrapperSelector: '#APP', devMode: true})
+</script>
+<body id="APP"></body>
+</html>
 ```
-
-This file is where we load what we need for our application.
-
-From this entire list we MUST import:
-- APP
-- Router
-- routes
-
-Everything else will be loaded at some point during the application's life cycle but keep in mind that it might be useful to preload components that are used often.
-
-In order to start the application we first create a new instance of the APP class. We save this instance to the window so we can always access parts of it if necessary and then we call the init function.
-
-The init function finds our wrapper and populates it with the appropiate content based on the matched route.
+As you can see we import the routes from ```/src/config/``` and we pass them to out app as the first parameter. Now each time we access an URL or the URL changes Just Sugar will analyze it and load the appropiate layout and view.
 
 The second parameter sent to the APP class are settings. We tell the app what wrapper to look for and whether or not it should start in developement mode. As of yet the only difference between developement mode is how errors are handled but we will look at those later.
 
