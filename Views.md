@@ -1,25 +1,30 @@
-# Creating a view in Just Sugar
+# Views
 
-In the [previous step](Start.md) we had a quick look at the index file where the application is loaded by default. In this step we will create a simple view, containing a list of users.
+Views are the main part of Just Sugar. They make up the GUI of your interface. They hold content, components and styling.
+
+In order to create a view in Just Sugar you first have to create  a `.js` file in `/src/views`. The name of the file can be whatever you want and it can be placed in any subfolder you want inside `/src/views` though it is recommended you try to match the route that will lead to this view.
+
+If you use the built server in MPA mode you need to create a `.html` file and include Just Sugar in it.
+## Example
+
+In this example we will create a simple view, containing a list of users.
 
 This example will not reflect reality as the data displayed in the view is just a mockup meant to simulate a real data set.
 
 We will be using Just Sugar's routing system for this example but if you do not want to use it simply ignore the first part of this guide.
 
 Let's get started!
+### Routing
 
-## Routing
-The first thing we need to do is create a route for out new view. When adding routes you can call them whatever you want but for this example we will keep things simple and call it ```/users```.
+The first thing we need to do is create a route for out new view. When adding routes you can call them whatever you want but for this example we will keep things simple and call it `/users`.
 
-Before we add the route let's try accessing this URL and see what happens. Go to ```http://localhost:3000/users``` and you will be met with an error page.
-
-![Users error](error_users_index.png)
+Before we add the route let's try accessing this URL and see what happens. Go to `http://localhost:3000/users` and you will be met with an error page.
 
 If you click on "Routes" you will see that we currently have only one route, the one for the first page.
 
 If you click on "Error" you will be able to see the details of the error.
 
-To fix this error you need to go to ```/src/config/routes.js``` and add the new route. To do so you will need to call the ```addRoute()``` function like so:
+To fix this error you need to go to `/src/config/routes.js` and add the new route. To do so you will need to call the `addRoute()` function like so:
 
 ```javascript
 router.addRoute('/users', '/users/index')
@@ -38,15 +43,12 @@ router.addRoute('/users', '/users/index')
 
 export default router;
 ```
+You will notice we have the `addScope()` function as well in our routes file. The `addScope()` function is used to determine what layout needs to be loaded based on the matched URL. For example you might load a certain layout for `/` and a different layout for `/admin`. We will discuss layouts in mode detail at a later time. For now let's see how our users index looks like.
 
-You will notice we have the ```addScope()``` function as well in our routes file. The ```addScope()``` function is used to determine what layout needs to be loaded based on the matched URL. For example you might load a certain layout for ```/``` and a different layout for ```/admin```. We will discuss layouts in mode detail at a later time. For now let's see how our users index looks like.
-
-## Creating the view class
+### Creating the view class
 Let's refresh the page and see what happens
 
-![User index 2nd error](error_users_index_2.png)
-
-You will notice the error changed. This mean the route we added was matched but now Just Sugar can not find the appropiate view. In order to fix this error we need to create a view in ```/src/views/users/```. Create the users folder in views and then create an ```index.js``` file in it. In the newly created file add the following code:
+You will notice the error changed. This mean the route we added was matched but now Just Sugar can not find the appropriate view. In order to fix this error we need to create a view in ```/src/views/users/```. Create the users folder in views and then create an ```index.js``` file in it. In the newly created file add the following code:
 
 ```javascript
 import View from '/core/view.js';
@@ -69,10 +71,10 @@ Refresh the page and you should see things are now working!
 A few things to note here:
 1. All views extend the ```View``` class from ```/core/view.js```
 2. Views can have a title function in order to change the title in the browser
-3. You may add comments before the template's string in order to get syntax highlightinh. In this case [Inline HTML](https://marketplace.visualstudio.com/items?itemName=pushqrdx.inline-html) was used.
+3. You may add comments before the template's string in order to get syntax highlighting. In this case [Inline HTML](https://marketplace.visualstudio.com/items?itemName=pushqrdx.inline-html) was used.
 
-## Adding content
-In order to add some content we will create an object to simulate some a data retrival from a database and/or API.
+### Adding content
+In order to add some content we will create an object to simulate some a data retrieval from a database and/or API.
 
 In our UsersIndex class we will create a new property called users:
 
@@ -106,7 +108,6 @@ Now in our ```template()``` function we will create a table and itterate over th
 
 ```javascript
     template() {
-        console.log(this.users)
         return /*html*/`
             <table>
                 <tr>
@@ -141,7 +142,6 @@ In order to do this we can use the built in ```if()``` function like so:
 
 ```javascript
     template() {
-        console.log(this.users)
         return /*html*/`
             <table>
                 <tr>
@@ -173,12 +173,12 @@ In order to do this we can use the built in ```if()``` function like so:
 
 The ```if()``` function accepts 3 parameters. The first one is the condition to be checked, the second one the string to return in case the condition is true and, optionally a third parameter that is returned in case the condition is not true.
 
-The ```for()``` and ```if()``` functions are basic yet powerfull tools that you can use to quickly and easily create templates
+The ```for()``` and ```if()``` functions are basic yet powerful tools that you can use to quickly and easily create templates
 
-## Styling the view
+### Styling the view
 Now that we have something to look at let's style the table a little.
 
-In Just Sugar you have two main ways of adding styling to your templates. You can either load a css file using the ```loadStyle()``` function or you can make view/component/layout specific syles by creating a ```style()``` function in your class. It is recommended that you use ```loadStyle()``` in layouts since they wrappe multiple views. This way they will apply the style in a more general manner. The ```style()``` function is best used to create component or view specific styling.
+In Just Sugar you have two main ways of adding styling to your templates. You can either load a CSS file using the ```loadStyle()``` function or you can make view/component/layout specific styles by creating a ```style()``` function in your class. It is recommended that you use ```loadStyle()``` in layouts since they wrap multiple views. This way they will apply the style in a more general manner. The ```style()``` function is best used to create component or view specific styling.
 
 In this example we will use the ```style()``` function. You can add this function anywhere in your class like this:
 
@@ -201,7 +201,24 @@ This will only be applied to the current view. This is done using CSS Nesting. T
 
 You will notice the ```--black``` variable being used. This comes from ```/resources/css/just_sugar.css```. This style sheet is loaded in ```/src/views/layouts/default.js``` and as such it is applied to all children of the layout including this view.
 
-## Adding functionality
+In case you do not want to rely on CSS Nesting you can also change the style above to include the ID of the class:
+
+```javascript
+style() {
+    return /*css*/`
+        ${this.id} table {
+            margin-top: 30px;
+            border-collapse: collapse;
+        }
+        ${this.id} table, th, td {
+            padding: 10px;
+            border: 1px solid var(--black);
+        }
+    `
+}
+```
+
+### Adding functionality
 
 Now that we have the looks figured out let's add some functionality to this view. We will add a delete button that removes a user from the users array of the view. In reality this would probably trigger an ajax call as well but we will not go so in depth.
 
@@ -231,6 +248,6 @@ And there we have it!
 
 A functional view created entirely with Just Sugar!
 
-It's important to note the fact we did not directly modify the DOM in our ```deleteUser``` function. What we did is change the users property of the class. In Just Sugar each time a propert of a class is updated the class is rerendered. This way you do not have to worry about selecting elements and changing them. All you have to do is change the property that is used for said element.
+It's important to note the fact we did not directly modify the DOM in our ```deleteUser``` function. What we did is change the users property of the class. In Just Sugar each time a property of a class is updated the class is re-rendered. This way you do not have to worry about selecting elements and changing them. All you have to do is change the property that is used for said element
 
-In the [next step](Layout.md) we will see how we can change the layout.
+Next we will discuss [Layouts](Layouts)
