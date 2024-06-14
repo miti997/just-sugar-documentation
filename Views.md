@@ -250,4 +250,4 @@ A functional view created entirely with Just Sugar!
 
 It's important to note the fact we did not directly modify the DOM in our ```deleteUser``` function. What we did is change the users property of the class. In Just Sugar each time a property of a class is updated the class is re-rendered. This way you do not have to worry about selecting elements and changing them. All you have to do is change the property that is used for said element
 
-Next we will discuss [Layouts](Layouts)
+Next we will discuss [Layouts](Layouts.md)

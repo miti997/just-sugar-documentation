@@ -197,4 +197,4 @@ Something to note here is that since we load the `just_sugar.css` file via `load
 
 Feel free to style this further and to create the other views as well.
 
-Next we will discuss [Components](Components)
+Next we will discuss [Components](Components.md)
