@@ -33,7 +33,7 @@ export default router;
 After the layout is loaded it's `render()` method is called in which the view is loaded using the `loadView()` method from the parent class `Layout` found in `/core/layout.js`.
 ## Example
 
-For this example we will make use of the view we created for the [views](Views) part of this documentation.
+For this example we will make use of the view we created for the [views](Views.md) part of this documentation.
 
 We will create a new scope for `/users` and we will load a layout specific to this section of our app.
 ### Linking to a page
