@@ -43,16 +43,16 @@ export default class TableRowComponent extends Component {
 ```
 Now that our data get's passed let's add the `template()` method.
 ```javascript
-     template() {
-        let cell = this.if(this.head, 'th', 'td');
-        return /*html*/`
-            <tr>
-                ${this.for(this.data, (data) => {
-					return /*html*/`<${cell}>${data}</${cell}>`;
-				})}
-            </tr>
-        `
-    }
+ template() {
+	let cell = this.if(this.head, 'th', 'td');
+	return /*html*/`
+		<tr>
+			${this.for(this.data, (data) => {
+				return /*html*/`<${cell}>${data}</${cell}>`;
+			})}
+		</tr>
+	`
+}
 ```
 The template function is quite simple. We make a new row and we add cells based on the data sent. We check whether or not we add a head and set the cell type appropriately.
 
@@ -65,45 +65,45 @@ import TableRow from '/src/components/table_row.js'
 Then we need to actually use the component in our `template()` method. We will first add the head of the table:
 ```javascript
 template() {
-		return /*html*/`
-			<table>
-				${this.loadComponent(TableRow, ['Id', 'User Name', 'Role', 'Email', 'Registered at','Actions'], true)}
-				${this.for(this.users, (user) => {
-					return /*html*/`
-						<tr>
-							<td>${user.id}</td>
-							<td>${user.userName}</td>
-							<td>
-								${this.if(user.roleId == 1, 'Admin', 'User')}
-							</td>
-							<td>${user.email}</td>
-							<td>${user.registrationDate}</td>
-							<td><button ${this.on('click', 'deleteUser', [user.id])}>Delete</button></td>
-						</tr>
-					`;
-				})}
-			</table>
-		`;
-	}
+	return /*html*/`
+		<table>
+			${this.loadComponent(TableRow, ['Id', 'User Name', 'Role', 'Email', 'Registered at','Actions'], true)}
+			${this.for(this.users, (user) => {
+				return /*html*/`
+					<tr>
+						<td>${user.id}</td>
+						<td>${user.userName}</td>
+						<td>
+							${this.if(user.roleId == 1, 'Admin', 'User')}
+						</td>
+						<td>${user.email}</td>
+						<td>${user.registrationDate}</td>
+						<td><button ${this.on('click', 'deleteUser', [user.id])}>Delete</button></td>
+					</tr>
+				`;
+			})}
+		</table>
+	`;
+}
 ```
 And finally let's change the actual content of the table:
 ```javascript
 template() {
-		return /*html*/`
-			<table>
-				${this.loadComponent(TableRow, ['Id', 'User Name', 'Role', 'Email', 'Registered at','Actions'], true)}
-				${this.for(this.users, (user) => {
-					return this.loadComponent(TableRow, [
-						user.id,
-						user.userName,
-						this.if(user.roleId == 1, 'Admin', 'User'),
-						user.email, user.registrationDate,
-						`<button ${this.on('click', 'deleteUser', [user.id])}>Delete</button>`
-					])
-				})}
-			</table>
-		`;
-	}
+	return /*html*/`
+		<table>
+			${this.loadComponent(TableRow, ['Id', 'User Name', 'Role', 'Email', 'Registered at','Actions'], true)}
+			${this.for(this.users, (user) => {
+				return this.loadComponent(TableRow, [
+					user.id,
+					user.userName,
+					this.if(user.roleId == 1, 'Admin', 'User'),
+					user.email, user.registrationDate,
+					`<button ${this.on('click', 'deleteUser', [user.id])}>Delete</button>`
+				])
+			})}
+		</table>
+	`;
+}
 ```
 
 And that's it! We created a component and we made our view a bit lighter. The main advantage of this however is that now we will be able to use this component all throughout our app.
