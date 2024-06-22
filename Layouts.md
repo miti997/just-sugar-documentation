@@ -143,7 +143,7 @@ The `loadView()` method is always called in a layout, assuming you want to load 
 
 Now that we have this second layout let's make it different from default. We will add a sidebar containing different actions for the users section of our app.
 
-First let's load the `SpaLink` component. Add the import statement above the `UsersLayout` class 
+First let's load the `SpaLink` component. Add the import statement above the `UsersLayout` class
 ```javascript
 import SpaLink from '/src/components/spa_link.js';
 ```
