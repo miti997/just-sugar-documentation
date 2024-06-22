@@ -33,7 +33,7 @@ export default router;
 After the layout is loaded it's `render()` method is called in which the view is loaded using the `loadView()` method from the parent class `Layout` found in `/core/layout.js`.
 ## Example
 
-For this example we will make use of the view we created for the [views](Views.md) part of this documentation.
+For this example we will make use of the view we created for the [views](Views) part of this documentation.
 
 We will create a new scope for `/users` and we will load a layout specific to this section of our app.
 ### Linking to a page
@@ -143,7 +143,7 @@ The `loadView()` method is always called in a layout, assuming you want to load 
 
 Now that we have this second layout let's make it different from default. We will add a sidebar containing different actions for the users section of our app.
 
-First let's load the `SpaLink` component. Add the import statement above the `UsersLayout` class
+First let's load the `SpaLink` component. Add the import statement above the `UsersLayout` class 
 ```javascript
 import SpaLink from '/src/components/spa_link.js';
 ```
@@ -197,4 +197,4 @@ Something to note here is that since we load the `just_sugar.css` file via `load
 
 Feel free to style this further and to create the other views as well.
 
-Next we will discuss [Components](Components.md)
+Next we will discuss [Components](Components)

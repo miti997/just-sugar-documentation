@@ -3,3 +3,4 @@
 ## [Getting Started](Getting%20Started.md)
 ## [Views](Views.md)
 ## [Layouts](Layouts.md)
+## [Components](Components.md)

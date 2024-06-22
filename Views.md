@@ -201,16 +201,20 @@ This will only be applied to the current view. This is done using CSS Nesting. T
 
 You will notice the ```--black``` variable being used. This comes from ```/resources/css/just_sugar.css```. This style sheet is loaded in ```/src/views/layouts/default.js``` and as such it is applied to all children of the layout including this view.
 
-In case you do not want to rely on CSS Nesting you can also change the style above to include the ID of the class:
+In case you do not want to rely on CSS Nesting you can turn it off by setting `nestedCSS` to false in your class like so:
+```javascript
+    nestedCSS = false;
+```
+You will then have to change the style above to include the ID of the class:
 
 ```javascript
 style() {
     return /*css*/`
-        ${this.id} table {
+        #${this.id} table {
             margin-top: 30px;
             border-collapse: collapse;
         }
-        ${this.id} table, th, td {
+        #${this.id} table, th, td {
             padding: 10px;
             border: 1px solid var(--black);
         }
@@ -250,4 +254,4 @@ A functional view created entirely with Just Sugar!
 
 It's important to note the fact we did not directly modify the DOM in our ```deleteUser``` function. What we did is change the users property of the class. In Just Sugar each time a property of a class is updated the class is re-rendered. This way you do not have to worry about selecting elements and changing them. All you have to do is change the property that is used for said element
 
-Next we will discuss [Layouts](Layouts.md)
+Next we will discuss [Layouts](Layouts)
